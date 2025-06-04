@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TryMePack</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  <style>
+    body { font-family: sans-serif; margin: 0; background: #fff; padding-bottom: 40px;}
+    .top-bar, .bottom-nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background: #fff; box-shadow: 0 1px 5px rgba(0,0,0,0.1); }
+    .search-bar { flex: 1; margin: 0 10px; }
+    .search-bar input { width: 100%; padding: 8px; border-radius: 20px; border: 1px solid #ccc; }
+    .icon { margin-left: 10px; position: relative; cursor: pointer; }
+    .icon::after { content: attr(data-count); position: absolute; top: -5px; right: -10px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
+    /* Swiper 輪播區 */
+    .swiper { margin: 10px; border-radius: 16px; overflow: hidden; }
+    .swiper-slide img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .section-title { font-weight: bold; font-size: 1.2rem; margin: 20px 16px 10px; }
+    .group-list { display: flex; gap: 10px; overflow-x: auto; padding: 0 16px 20px; }
+    .group-card { flex: 0 0 200px; background: #fafafa; border-radius: 12px; padding: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: relative; display: flex; flex-direction: column; align-items: center; }
+    .group-card .badge { position: absolute; top: 8px; right: 8px; background: #eee; padding: 2px 6px; border-radius: 10px; font-size: 12px; }
+    .group-card .image { width: 100%; height: 100px; background: #ddd; border-radius: 8px; margin-bottom: 8px; }
+    .progress-bar { background: #eee; border-radius: 10px; overflow: hidden; height: 8px; width: 100%; margin: 8px 0; }
+    .progress-bar-fill { background: #f66; height: 100%; }
+    .join-btn { width: 100%; height: 32px; background: #f66; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
+    .join-btn:hover { background: #d55; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; justify-content: space-around; box-shadow: 0 -1px 5px rgba(0,0,0,0.1); }
+    .bottom-nav div { text-align: center; font-size: 12px; cursor: pointer; }
+    .bottom-nav div.active { color: #f66; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <div><strong>TryMePack</strong></div>
+      <div class="search-bar"><input type="text" placeholder="搜尋品牌或產品..."></div>
+      <div class="icon" data-count="2">🔔</div>
+      <div class="icon" data-count="3">🛒</div>
+      <div class="icon" data-count="2">⭐</div>
+    </div>
+  </header>
+
+  <!-- Swiper 輪播區 -->
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="test1.png" alt="輪播1"></div>
+      <div class="swiper-slide"><img src="test2.png" alt="輪播2"></div>
+      <div class="swiper-slide"><img src="test3.png" alt="輪播3"></div>
+    </div>
+    <!-- 分頁點 -->
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <div class="section-title">即將成團 🔥</div>
+  <div class="group-list">
+    <div class="group-card">
+      <div class="image"></div>
+      <div class="badge">敏感肌適用</div>
+      <strong>自然之選</strong>
+      <div>蘆薈舒緩保濕面膜</div>
+      <div class="progress-bar"><div class="progress-bar-fill" style="width: 80%"></div></div>
+      <div>4 / 5 已加入</div>
+      <button class="join-btn">加入此團</button>
+    </div>
+    <div class="group-card">
+      <div class="image"></div>
+      <div class="badge">油性肌適用</div>
+      <strong>清新日常</strong>
+      <div>茶樹控油潔面乳</div>
+      <div class="progress-bar"><div class="progress-bar-fill" style="width: 60%"></div></div>
+      <div>3 / 5 已加入</div>
+      <button class="join-btn">加入此團</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="bottom-nav">
+      <div class="active">🏠<br>首頁</div>
+      <div>📦<br>全部產品</div>
+      <div>👤<br>個人</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      speed: 600
+    });
+  </script>
+</body>
+</html>
