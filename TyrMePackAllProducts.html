@@ -424,12 +424,6 @@
       filterBar.classList.toggle('collapsed');
       toggleBtn.textContent = filterBar.classList.contains('collapsed') ? '展開篩選' : '收合篩選';
     });
-    const gridBtn = document.getElementById('gridViewBtn');
-    const productGrid = document.getElementById('productGrid');
-    gridBtn.addEventListener('click', () => {
-      gridBtn.classList.add('active');
-      productGrid.style.display = 'grid';
-    });
     const backToTopBtn = document.getElementById('backToTopBtn');
     window.addEventListener('scroll', () => {
       backToTopBtn.style.display = window.scrollY > 300 ? 'flex' : 'none';
