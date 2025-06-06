@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryMePack - 個人資料</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background: #fff;
+            padding-bottom: 56px;
+        }
+    /* Header + Footer */
+        .top-bar,
+        .bottom-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: #fff;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-bar .brand {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .search-bar {
+            flex: 1;
+            margin: 0 10px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+        }
+
+        .icon {
+            margin-left: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .icon[data-count="0"]::after {
+            display: none;
+        }
+
+        .icon::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 10px;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            justify-content: space-around;
+            box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-nav div {
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .bottom-nav div.active {
+            color: #f66;
+        }
+
+        .account-section {
+            margin: 0 auto;
+            max-width: 480px;
+            padding: 0 16px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 28px 0 14px;
+        }
+
+        /* 基本資訊區 */
+        .account-overview {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .avatar-box {
+            position: relative;
+        }
+
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f66;
+            background: #eee;
+            cursor: pointer;
+        }
+
+        .avatar-edit {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #f66;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 14px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-info .name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .account-info .email {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .account-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .account-actions button {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #f66;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .account-actions button.logout {
+            background: #888;
+        }
+
+        /* 試用紀錄 */
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .trial-card {
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            cursor: pointer;
+        }
+
+        .trial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .trial-card-details {
+            flex: 1;
+        }
+
+        .trial-card .brand {
+            font-size: 14px;
+            color: #f66;
+        }
+
+        .trial-card .product {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .trial-card .expand {
+            color: #888;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* 展開內容 */
+        .trial-details {
+            margin-top: 10px;
+            padding: 12px;
+            background: #fff8f4;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .trial-details .actions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .trial-details button {
+            padding: 5px 12px;
+            font-size: 13px;
+            border: none;
+            border-radius: 4px;
+            background: #f66;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* 收藏清單 */
+        .wishlist-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .wishlist-sort {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .wishlist-card {
+            background: #fafafa;
+            border-radius: 10px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .wishlist-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .wishlist-info {
+            flex: 1;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .wishlist-actions button {
+            border: none;
+            border-radius: 4px;
+            background: #f66;
+            color: #fff;
+            font-size: 13px;
+            padding: 4px 10px;
+            cursor: pointer;
+        }
+
+        /* 開團紀錄 */
+        .group-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .group-table th,
+        .group-table td {
+            padding: 8px;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .group-table th {
+            background: #f7d8d1;
+            color: #c34;
+        }
+
+        .group-table tr {
+            background: #fff;
+        }
+
+        .group-table td img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+
+        .group-actions button {
+            border: none;
+            border-radius: 4px;
+            background: #f66;
+            color: #fff;
+            font-size: 13px;
+            padding: 4px 10px;
+            cursor: pointer;
+            margin-right: 4px;
+        }
+
+        /* Token 點數區 */
+        .token-area {
+            background: #fff7f2;
+            border-radius: 12px;
+            padding: 16px 14px;
+            margin: 20px 0 8px;
+        }
+
+        .token-main {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .token-icon {
+            font-size: 30px;
+            color: #f66;
+        }
+
+        .token-info {
+            flex: 1;
+        }
+
+        .token-info .level {
+            color: #c34;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .token-info .points {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .token-history {
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .token-history ul {
+            margin: 0 0 10px 18px;
+            padding: 0;
+        }
+
+        .token-history .subtitle {
+            color: #c34;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="brand">TryMePack</div>
+            <div class="search-bar"><input type="text" placeholder="搜尋商品或關鍵字..."></div>
+            <div class="icon" data-count="2">🔔</div>
+            <div class="icon" data-count="0">🛒</div>
+            <div class="icon" data-count="0">⭐</div>
+        </div>
+    </header>
+    <div class="account-section">
+        <!-- 基本資訊區 -->
+        <div class="section-title">基本資訊</div>
+        <div class="account-overview">
+            <div class="avatar-box">
+                <img class="avatar" id="avatarImg" src="test1.png" alt="頭像">
+                <label class="avatar-edit" for="avatarUpload">✎</label>
+                <input id="avatarUpload" type="file" accept="image/*" style="display:none">
+            </div>
+            <div class="account-info">
+                <div class="name">王小明</div>
+                <div class="email">xiao.ming@email.com</div>
+                <div class="account-actions">
+                    <button>修改密碼</button>
+                    <button class="logout">登出</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的試用紀錄 -->
+        <div class="section-title">我的試用紀錄</div>
+        <div class="card-list">
+            <div class="trial-card" onclick="toggleTrialDetails(this)">
+                <img src="test1.png" alt="商品1">
+                <div class="trial-card-details">
+                    <div class="brand">自然之選</div>
+                    <div class="product">蘆薈舒緩保濕面膜</div>
+                    <div class="expand">點擊展開回饋紀錄與操作</div>
+                    <div class="trial-details" style="display:none;">
+                        <div>評分：⭐⭐⭐⭐</div>
+                        <div>心得：質地清爽，敏感肌無負擔</div>
+                        <div class="actions">
+                            <button>再次申請</button>
+                            <button>重新開團</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="trial-card" onclick="toggleTrialDetails(this)">
+                <img src="test2.png" alt="商品2">
+                <div class="trial-card-details">
+                    <div class="brand">清新日常</div>
+                    <div class="product">茶樹控油潔面乳</div>
+                    <div class="expand">點擊展開回饋紀錄與操作</div>
+                    <div class="trial-details" style="display:none;">
+                        <div>評分：⭐⭐⭐</div>
+                        <div>心得：控油力好但香氣稍重</div>
+                        <div class="actions">
+                            <button>再次申請</button>
+                            <button>重新開團</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 我的收藏清單 -->
+        <div class="section-title">我的收藏清單</div>
+        <div class="wishlist-controls">
+            <span>排序：</span>
+            <select class="wishlist-sort">
+                <option>分類</option>
+                <option>品牌</option>
+                <option>收藏時間</option>
+            </select>
+        </div>
+        <div class="wishlist-card">
+            <img src="test1.png" alt="收藏1">
+            <div class="wishlist-info">
+                <div class="brand">自然之選</div>
+                <div class="product">蘆薈舒緩保濕面膜</div>
+            </div>
+            <div class="wishlist-actions">
+                <button>查看詳情</button>
+                <button>取消收藏</button>
+                <button>一鍵開團</button>
+            </div>
+        </div>
+        <div class="wishlist-card">
+            <img src="test2.png" alt="收藏2">
+            <div class="wishlist-info">
+                <div class="brand">清新日常</div>
+                <div class="product">茶樹控油潔面乳</div>
+            </div>
+            <div class="wishlist-actions">
+                <button>查看詳情</button>
+                <button>取消收藏</button>
+                <button>加入團購</button>
+            </div>
+        </div>
+
+        <!-- 我的開團紀錄 -->
+        <div class="section-title">我的開團紀錄</div>
+        <table class="group-table">
+            <tr>
+                <th>商品</th>
+                <th>名稱</th>
+                <th>進度</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td><img src="test1.png">蘆薈面膜</td>
+                <td>自然之選</td>
+                <td>3 / 5</td>
+                <td class="group-actions">
+                    <button>複製連結</button>
+                    <button>退出團購</button>
+                </td>
+            </tr>
+            <tr>
+                <td><img src="test2.png">茶樹潔面乳</td>
+                <td>清新日常</td>
+                <td>4 / 5</td>
+                <td class="group-actions">
+                    <button>複製連結</button>
+                    <button>退出團購</button>
+                </td>
+            </tr>
+        </table>
+
+        <!-- TryMe Token 區 -->
+        <div class="section-title">TryMe Token 與回收紀錄</div>
+        <div class="token-area">
+            <div class="token-main">
+                <span class="token-icon">🪙</span>
+                <div class="token-info">
+                    <div class="level">銅牌會員</div>
+                    <div class="points">180 點</div>
+                </div>
+            </div>
+            <div class="token-history">
+                <div class="subtitle">點數獲得紀錄</div>
+                <ul>
+                    <li>試用回饋 +10</li>
+                    <li>瓶罐回收 +5</li>
+                    <li>推薦好友註冊 +15</li>
+                </ul>
+                <div class="subtitle">點數使用紀錄</div>
+                <ul>
+                    <li>兌換折價券 -50</li>
+                    <li>會員專屬獎勵 -80</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="bottom-nav">
+            <div>
+                <a href="TyrMePackHomePage.html" style="text-decoration:none;color:inherit;">
+                    🏠<br>首頁
+                </a>
+            </div>
+            <div>
+                <a href="TyrMePackAllProducts.html" style="text-decoration:none;color:inherit;">
+                    📦<br>全部產品
+                </a>
+            </div>
+            <div class="active">👤<br>個人</div>
+        </div>
+    </footer>
+    <script>
+        document.querySelector('.avatar-edit').onclick = function () {
+            document.getElementById('avatarUpload').click();
+        };
+        document.getElementById('avatarUpload').onchange = function (e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    document.getElementById('avatarImg').src = evt.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        };
+        window.toggleTrialDetails = function (card) {
+            const details = card.querySelector('.trial-details');
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
