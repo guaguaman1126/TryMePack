@@ -13,7 +13,8 @@
             background: #fff;
             padding-bottom: 56px;
         }
-    /* Header + Footer */
+
+        /* Header + Footer */
         .top-bar,
         .bottom-nav {
             display: flex;
@@ -28,6 +29,7 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
+
         .search-bar {
             flex: 1;
             margin: 0 10px;
@@ -164,6 +166,27 @@
 
         .account-actions button.logout {
             background: #888;
+        }
+
+        .sheet-area {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .sheet-area button {
+            width: 100%;
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background: #f66;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+
         }
 
         /* 試用紀錄 */
@@ -380,9 +403,6 @@
             font-weight: 600;
             margin-top: 10px;
         }
-
-        
-        
     </style>
 </head>
 
@@ -413,6 +433,12 @@
                     <button class="logout">登出</button>
                 </div>
             </div>
+        </div>
+
+        <div class="sheet-area">
+            <button onmouseover="this.style.background='#e05555'" onmouseout="this.style.background='#f66'">
+                ✍ 首次註冊請填表單
+            </button>
         </div>
 
         <!-- 我的試用紀錄 -->
@@ -516,6 +542,8 @@
             </tr>
         </table>
 
+
+
         <!-- TryMe Token 區 -->
         <div class="section-title">TryMe Token 與回收紀錄</div>
         <div class="token-area">
@@ -577,6 +605,15 @@
                 details.style.display = 'none';
             }
         }
+
+        document.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.background = "#e05555";
+            });
+            btn.addEventListener("mouseout", () => {
+                btn.style.background = "#f66";
+            });
+        });
     </script>
 </body>
 

@@ -324,6 +324,15 @@
       },
       speed: 600
     });
+
+    document.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.background = "#e05555";
+            });
+            btn.addEventListener("mouseout", () => {
+                btn.style.background = "#f66";
+            });
+        });
   </script>
 </body>
 
