@@ -145,8 +145,8 @@
 
     .product-card img {
       width: 100%;
-      height: 0;
-      padding-bottom: 100%;
+      aspect-ratio: 0.8;
+      /* padding-bottom: 100%; */
       object-fit: cover;
     }
 
@@ -314,9 +314,10 @@
   </div>
   <div class="product-container">
     <div class="product-grid" id="productGrid">
+
       <div class="product-card">
         <div class="favorite-icon">♡</div>
-        <img src="" alt="商品圖" />
+        <img src="test1.png" alt="商品圖" />
         <div class="product-info">
           <div class="title">大王花舒緩保濕洗髮精</div>
           <div class="tags">
@@ -332,9 +333,48 @@
           <button class="action-btn join-btn">立即加入揪團</button>
         </div>
       </div>
+
+      <div class="product-card">
+        <div class="favorite-icon">♡</div>
+        <img src="test1.png" alt="商品圖" />
+        <div class="product-info">
+          <div class="title">大王花舒緩保濕洗髮精</div>
+          <div class="tags">
+            <div class="tag">洗髮精</div>
+            <div class="tag">花香</div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: 60%;"></div>
+            </div>
+            <div class="count-text">3 / 5 人已加入</div>
+          </div>
+          <button class="action-btn join-btn">立即加入揪團</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="favorite-icon">♡</div>
+        <img src="test1.png"></img>
+        <div class="product-info">
+          <div class="title">大王花舒緩保濕洗髮精</div>
+          <div class="tags">
+            <div class="tag">洗髮精</div>
+            <div class="tag">花香</div>
+          </div>
+          <div class="progress-section">
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: 60%;"></div>
+            </div>
+            <div class="count-text">3 / 5 人已加入</div>
+          </div>
+          <button class="action-btn join-btn">立即加入揪團</button>
+        </div>
+      </div>
+
       <div class="product-card">
         <div class="favorite-icon active">♥</div>
-        <img src="" alt="商品圖" />
+        <img src="test1.png" alt="商品圖">
         <div class="product-info">
           <div class="title">茶樹控油洗面乳</div>
           <div class="tags">
@@ -346,19 +386,7 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="empty-state" id="emptyState" style="display: none;">
-      <div>找不到符合的產品，請調整篩選條件或關鍵字</div>
-      <div class="suggestion">
-        <div class="suggestion-card">
-          <img src="" alt="建議商品1" />
-          <div class="name">熱銷保濕乳</div>
-        </div>
-        <div class="suggestion-card">
-          <img src="" alt="建議商品2" />
-          <div class="name">推薦潔面泡泡</div>
-        </div>
-      </div>
+
     </div>
     <button class="load-more" id="loadMoreBtn">載入更多</button>
     <button class="back-to-top" id="backToTopBtn">↑</button>
